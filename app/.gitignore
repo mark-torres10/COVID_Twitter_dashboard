@@ -3,3 +3,4 @@ __pycache__
 covid_venv/
 frontend/static/frontend/
 *.sqlite3
+*.env
