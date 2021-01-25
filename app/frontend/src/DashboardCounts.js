@@ -1,10 +1,11 @@
 import React from 'react'; 
 import './static/DashboardCounts.css'; 
+import counts from './assets/placeholders/counts.png'; 
 
 const DashboardCounts = () => {
     return (
         <div className="dashboard-counts">
-            This is where the counts graph will go
+            <img className="counts" src={counts} alt="Placeholder count data"/>
         </div>
     )
 }

@@ -3,6 +3,7 @@
 }
 
 .map {
+    height: 98%; 
     width: 98%; 
     position: absolute;
     left: 50%;
