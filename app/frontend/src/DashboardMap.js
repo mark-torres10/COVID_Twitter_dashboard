@@ -1,8 +1,9 @@
 import React from 'react'; 
+import './static/DashboardMap.css'; 
 
 const DashboardMap = () => {
     return (
-        <div>
+        <div className = "dashboard-map">
             This is where the dashboard map will go!
         </div>
     )

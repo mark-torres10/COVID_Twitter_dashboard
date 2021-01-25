@@ -18,8 +18,30 @@
     height: 20em; 
     width: 98%; 
     margin: auto; 
-    margin-top: 0.5em; 
-    margin-bottom: 0.5em; 
+}
+
+.dashboard-map {
+    float: left; 
+    width: 40%; 
+    box-sizing: border-box; 
+    position: relative; 
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 5%; 
+    height: 80%; 
+}
+
+.dashboard-counts {
+    float: right; 
+    width: 40%; 
+    box-sizing: border-box; 
+    position: relative; 
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-right: 5%; 
+    height: 80%; 
 }
 
 .dashboard-main-timeSeries {
@@ -28,6 +50,9 @@
     height: 20em; 
     width: 98%; 
     margin: auto; 
-    margin-top: 0.5em; 
-    margin-bottom: 0.5em; 
 }
+
+/* Global CSS */
+.clr {
+    clear: both;
+ }
