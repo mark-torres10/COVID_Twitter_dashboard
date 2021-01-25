@@ -1,7 +1,7 @@
 .main {
     background-color: yellow; 
     border-radius: 1em; 
-    height: 33em; 
+    height: 50em; 
 }
 
 .sidebar {
@@ -9,7 +9,7 @@
     width: 20%; 
     box-sizing: border-box; 
     position: relative; 
-    height: 30em; 
+    height: 48em; 
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -20,7 +20,7 @@
     float: right; 
     width: 79%; 
     box-sizing: border-box; 
-    height: 30em; 
+    height: 48em; 
     position: relative;
     top: 50%;
     -ms-transform: translateY(-50%);

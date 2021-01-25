@@ -8,7 +8,6 @@ const App = () => {
   return (
     <div>
         <Header />
-        Hello, World!
         <div className="main">
             <Sidebar className="sidebar"/>
             <Dashboard className="dashboard"/>

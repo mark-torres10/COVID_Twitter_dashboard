@@ -2,3 +2,32 @@
     background-color: gray; 
     border-radius: 1em; 
 }
+
+.dashboard-summary-stats {
+    border-radius: 0.25em; 
+    width: 98%;
+    margin: auto; 
+    margin-top: 0.5em; 
+    margin-bottom: 0.5em; 
+    height: 5em; 
+}
+
+.dashboard-main-map-counts { 
+    background-color: green; 
+    border-radius: 0.25em; 
+    height: 20em; 
+    width: 98%; 
+    margin: auto; 
+    margin-top: 0.5em; 
+    margin-bottom: 0.5em; 
+}
+
+.dashboard-main-timeSeries {
+    background-color: pink; 
+    border-radius: 0.25em; 
+    height: 20em; 
+    width: 98%; 
+    margin: auto; 
+    margin-top: 0.5em; 
+    margin-bottom: 0.5em; 
+}
