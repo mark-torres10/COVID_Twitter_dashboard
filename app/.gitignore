@@ -1,0 +1,5 @@
+node_modules/
+__pycache__
+covid_venv/
+frontend/static/frontend/
+*.sqlite3
