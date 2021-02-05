@@ -50,6 +50,10 @@
     height: 20em; 
     width: 98%; 
     margin: auto; 
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Global CSS */

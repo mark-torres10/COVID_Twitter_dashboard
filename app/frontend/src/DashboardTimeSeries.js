@@ -1,8 +1,13 @@
 import React from 'react'; 
+import './static/DashboardTimeSeries.css'; 
+import timeSeries from './assets/placeholders/covid19_timeSeries.jpeg'; 
 
 const DashboardTimeSeries = () => {
     return (
-        <div>This is where the time series will go</div>
+        <div className="dashboard-time-series">
+            {/* Placeholder time series */}
+            <img className="time-series" src={timeSeries} alt="COVID19 Time Series"/>
+        </div>
     )
 }
 

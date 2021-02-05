@@ -12,7 +12,6 @@ const App = () => {
             <Sidebar className="sidebar"/>
             <Dashboard className="dashboard"/>
         </div>
-
     </div>
   )
 }
