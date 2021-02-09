@@ -158,8 +158,8 @@ if __name__ == "__main__":
     DF_FILENAME = "scraped_tweet_IDs_and_scores_2020-03-20_2021-02-09.csv"
     LOCAL_EXPORT_ID_PATH = ID_PATH + ID_FILENAME
     LOCAL_EXPORT_DF_PATH = LOCAL_TWEET_PATH + DF_FILENAME
-    AWS_EXPORT_ID_PATH = "tweet_IDs/" + ID_FILENAME
-    AWS_EXPORT_DF_PATH = "raw_IEEE_tweet_scrapes/" + DF_FILENAME
+    AWS_EXPORT_ID_PATH = AWS_TWEET_DIR + "tweet_IDs/" + ID_FILENAME
+    AWS_EXPORT_DF_PATH = AWS_TWEET_DIR + "raw_IEEE_tweet_scrapes/" + DF_FILENAME
 
     # scrape filenames and links to .csv files
     try:
