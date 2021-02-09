@@ -7,4 +7,4 @@
 *.covid_venv/*
 *.vscode/*
 *.covid_venv
-*creds.sh
+*configs.sh
