@@ -211,20 +211,20 @@ if __name__ == "__main__":
         tweet_IDs_list.append(tweet_IDs)
 
     # concatenate both the tweet IDs list and the tweet df list, each as one list or df
-    if len(tweet_df_list) > 1 and len(tweet_IDs_list) > 1:
-
+    if len(tweet_IDs_list) > 1:
         merged_IDs = []
         for lst in tweet_IDs_list:
             for ID in lst:
                 merged_IDs.append(ID)
-
-        merged_tweet_dfs = pd.concat(tweet_df_list)
-
-    # export
     else:
         merged_IDs = tweet_IDs_list[0]
+
+    if len(tweet_df_list) > 1:
+        merged_tweet_dfs = pd.concat(tweet_df_list)
+    else:
         merged_tweet_dfs = tweet_df_list[0]
 
+    # export
     save_tweet_IDs(merged_IDs, LOCAL_EXPORT_ID_PATH)
     merged_tweet_dfs.to_csv(LOCAL_EXPORT_DF_PATH)
 
