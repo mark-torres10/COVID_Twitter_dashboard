@@ -7,5 +7,6 @@
         "url": "schemaURL", 
         "python.pythonPath": "/Users/mark/opt/anaconda3/envs/covid_venv/bin/python3"
     }
-    ]
+    ],
+    "python.pythonPath": "/Users/mark/opt/anaconda3/envs/covid_venv/bin/python3"
 }

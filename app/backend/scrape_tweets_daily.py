@@ -11,6 +11,8 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import numpy as np
+import pandas as pd
 
 
 def get_links_from_website(website, driver_path, username, password):
@@ -33,6 +35,7 @@ def get_links_from_website(website, driver_path, username, password):
 
     # initialize driver
     driver = webdriver.Chrome(driver_path)
+    driver.get(website)
 
 
 if __name__ == "__main__":

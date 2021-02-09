@@ -6,3 +6,4 @@
 *.env
 *.covid_venv/*
 *.vscode/*
+*.covid_venv
