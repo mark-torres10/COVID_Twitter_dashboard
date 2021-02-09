@@ -188,8 +188,8 @@ if __name__ == "__main__":
     DF_FILENAME = "scraped_tweet_IDs_and_scores_2020-03-20_2021-02-09.csv"
     LOCAL_EXPORT_ID_PATH = ID_PATH + ID_FILENAME
     LOCAL_EXPORT_DF_PATH = LOCAL_TWEET_PATH + DF_FILENAME
-    AWS_EXPORT_ID_PATH = AWS_TWEET_DIR + "tweet_IDs/" + ID_FILENAME
-    AWS_EXPORT_DF_PATH = AWS_TWEET_DIR + "raw_IEEE_tweet_scrapes/" + DF_FILENAME
+    AWS_EXPORT_ID_PATH = "tweet_IDs/" + ID_FILENAME
+    AWS_EXPORT_DF_PATH = "raw_IEEE_tweet_scrapes/" + DF_FILENAME
 
     # scrape filenames and links to .csv files
     try:
@@ -230,7 +230,20 @@ if __name__ == "__main__":
 
     # export to AWS
     try:
-        save_to_AWS(LOCAL_EXPORT_ID_PATH, )
+        # export list of IDs
+        save_to_AWS(LOCAL_EXPORT_ID_PATH,
+                    AWS_EXPORT_ID_PATH,
+                    AWS_BUCKET,
+                    AWS_ACCESS,
+                    AWS_SECRET)
+
+        # export df of IDs + sentiment scores
+        save_to_AWS(LOCAL_EXPORT_DF_PATH,
+                    AWS_EXPORT_DF_PATH,
+                    AWS_BUCKET,
+                    AWS_ACCESS,
+                    AWS_SECRET)
+
     except Exception as e:
         print("Error in exporting the local files to AWS")
         print(e)
