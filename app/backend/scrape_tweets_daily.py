@@ -124,7 +124,7 @@ def save_tweet_IDs(tweet_IDs, filepath):
 
     last_line = len(tweet_IDs) - 1
 
-    with open(filepath, "a+") as f:
+    with open(filepath, "w") as f:
         for idx, tweet in enumerate(tweet_IDs):
             if idx != last_line:
                 f.write(f"{tweet}, \n")
@@ -135,6 +135,9 @@ def save_tweet_IDs(tweet_IDs, filepath):
 
 
 if __name__ == "__main__":
+
+    # change dir to this file's directory
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     # get env vars
     IEEE_USERNAME = os.environ["IEEE_USERNAME"]
@@ -177,7 +180,7 @@ if __name__ == "__main__":
         tweet_df_list.append(tweet_df)
         tweet_IDs_list.append(tweet_IDs)
 
-    # concatenate both the tweet IDs list and the tweet df list, each as one list or df
+    # concatenate both the tweet IDs list and the tweet df list, each as one list or one df
     if len(tweet_IDs_list) > 1:
         merged_IDs = []
         for lst in tweet_IDs_list:

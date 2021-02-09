@@ -9,3 +9,4 @@
 *.covid_venv
 *config.sh
 *rootkey.csv
+*tweets/*
