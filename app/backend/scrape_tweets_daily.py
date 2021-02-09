@@ -17,6 +17,8 @@ import pandas as pd
 import time
 import datetime
 import boto3
+import aws_helpers
+from aws_helpers import save_to_AWS
 
 
 def get_links_from_website(website, driver_path, username, password):
@@ -132,41 +134,6 @@ def save_tweet_IDs(tweet_IDs, filepath):
     return None
 
 
-def save_to_AWS(local_file, s3_file, AWS_bucket, AWS_access, AWS_secret):
-    """
-
-    Saves a local file to AWS
-
-    Args:
-        local_file: path (str) to a local file to export to AWS
-        s3_file: path (str) of file within the S3 bucket
-        AWS_bucket: name of S3 bucket
-        AWS_access: AWS access key
-        AWS_secret: AWS secret key
-
-    """
-
-    # connect boto3 wih AWS
-    try:
-        s3 = boto3.client("s3",
-                          aws_access_key_id=AWS_access,
-                          aws_secret_access_key=AWS_secret)
-    except Exception as e:
-        print("Connection with AWS unsuccessful")
-        print(e)
-        raise ValueError("Please fix connection error to AWS S3 bucket")
-
-    # upload data to AWS
-    try:
-        s3.upload_file(local_file, AWS_bucket, s3_file)
-    except Exception as e:
-        print("Error in uploading data to AWS")
-        print(e)
-        raise ValueError("Please fix error in uploading data to AWS")
-    finally:
-        return None
-
-
 if __name__ == "__main__":
 
     # get env vars
@@ -233,6 +200,7 @@ if __name__ == "__main__":
         # export list of IDs
         save_to_AWS(LOCAL_EXPORT_ID_PATH,
                     AWS_EXPORT_ID_PATH,
+                    "s3",
                     AWS_BUCKET,
                     AWS_ACCESS,
                     AWS_SECRET)
@@ -240,6 +208,7 @@ if __name__ == "__main__":
         # export df of IDs + sentiment scores
         save_to_AWS(LOCAL_EXPORT_DF_PATH,
                     AWS_EXPORT_DF_PATH,
+                    "s3",
                     AWS_BUCKET,
                     AWS_ACCESS,
                     AWS_SECRET)
