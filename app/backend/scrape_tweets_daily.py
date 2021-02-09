@@ -152,6 +152,8 @@ if __name__ == "__main__":
     # AWS_SECRET
 
     DRIVER_PATH = "/Users/mark/Documents/research/gersteinLab/TextMining-master/chromedriver"
+
+    get_links_from_website()
     # load tweets from website
     print("This part of the script loads the tweets from the website")
 
