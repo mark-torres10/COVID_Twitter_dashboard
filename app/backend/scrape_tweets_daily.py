@@ -5,7 +5,8 @@
     This tweet performs daily scrapes of the hydrated tweets at 
     https://ieee-dataport.org/open-access/coronavirus-covid-19-geo-tagged-tweets-dataset
 
-    It loads the tweets and saves both the tweets the tweet IDs to an AWS bucket
+    It loads the tweets and saves both the original dataframes (with two cols, "tweet_id" and "sentiment_score")
+    and the tweet IDs to an AWS bucket
 
 """
 import os
@@ -14,6 +15,7 @@ from selenium.webdriver.common.by import By
 import numpy as np
 import pandas as pd
 import time
+import datetime
 import boto3
 
 
@@ -107,6 +109,29 @@ def get_tweetIDs_to_hydrate(link):
     return (df, tweet_IDs)
 
 
+def save_tweet_IDs(tweet_IDs, filepath):
+    """
+    Save a list of tweet IDs as a file (.csv)
+    Args:
+        tweet_IDs: list (str) of tweet IDs
+        filepath: path (str) to save IDs
+
+    Returns: 
+        None
+    """
+
+    last_line = len(tweet_IDs) - 1
+
+    with open(filepath, "a+") as f:
+        for idx, tweet in enumerate(tweet_IDs):
+            if idx != last_line:
+                f.write(f"{tweet}, \n")
+            else:
+                f.write(f"{tweet}")
+
+    return None
+
+
 def save_to_AWS(local_file, s3_file, AWS_bucket, AWS_access, AWS_secret):
     """
 
@@ -144,21 +169,74 @@ def save_to_AWS(local_file, s3_file, AWS_bucket, AWS_access, AWS_secret):
 
 if __name__ == "__main__":
 
-    # get credentials, as env vars
-
-    # IEEE_USERNAME
-    # IEEE_PASSWORD
-    # AWS_ACCESS
-    # AWS_SECRET
-
+    # get env vars
     IEEE_USERNAME = os.environ["IEEE_USERNAME"]
     IEEE_PASSWORD = os.environ["IEEE_PASSWORD"]
+    AWS_ACCESS = os.environ["AWS_ACCESS"]
+    AWS_SECRET = os.environ["AWS_SECRET"]
+    AWS_BUCKET = os.environ["AWS_BUCKET"]
 
-    DRIVER_PATH = "/Users/mark/Documents/research/gersteinLab/TextMining-master/chromedriver"
-
+    # initialize paths
     AWS_TWEET_DIR = "tweet_scrapes/"
-    get_links_from_website()
-    # load tweets from website
-    print("This part of the script loads the tweets from the website")
+    ID_PATH = "./../../tweets/tweet_IDs/"
+    LOCAL_TWEET_PATH = "./../../tweets/"
+    DRIVER_PATH = "/Users/mark/Documents/research/gersteinLab/TextMining-master/chromedriver"
+    WEBSITE = "https://ieee-dataport.org/open-access/coronavirus-covid-19-geo-tagged-tweets-dataset"
 
-    #
+    # local filenames of exports
+    ID_FILENAME = "scraped_tweet_IDs_2020-03-20_2021-02-09.csv"
+    DF_FILENAME = "scraped_tweet_IDs_and_scores_2020-03-20_2021-02-09.csv"
+    LOCAL_EXPORT_ID_PATH = ID_PATH + ID_FILENAME
+    LOCAL_EXPORT_DF_PATH = LOCAL_TWEET_PATH + DF_FILENAME
+    AWS_EXPORT_ID_PATH = AWS_TWEET_DIR + "tweet_IDs/" + ID_FILENAME
+    AWS_EXPORT_DF_PATH = AWS_TWEET_DIR + "raw_IEEE_tweet_scrapes/" + DF_FILENAME
+
+    # scrape filenames and links to .csv files
+    try:
+        filename_list, links_list = get_links_from_website(WEBSITE,
+                                                           DRIVER_PATH,
+                                                           IEEE_USERNAME,
+                                                           IEEE_PASSWORD)
+    except Exception as e:
+        print("Something wrong with scraping filenames and links on IEEE website.")
+        print(e)
+
+    # load tweets from list of links
+    tweet_df_list = []
+    tweet_IDs_list = []
+
+    for link in links_list:
+        tweet_df, tweet_IDs = get_tweetIDs_to_hydrate(link)
+        tweet_df_list.append(tweet_df)
+        tweet_IDs_list.append(tweet_IDs)
+
+    # concatenate both the tweet IDs list and the tweet df list, each as one list or df
+    if len(tweet_df_list) > 1 and len(tweet_IDs_list) > 1:
+
+        merged_IDs = []
+        for lst in tweet_IDs_list:
+            for ID in lst:
+                merged_IDs.append(ID)
+
+        merged_tweet_dfs = pd.concat(tweet_df_list)
+
+    # export
+    else:
+        merged_IDs = tweet_IDs_list[0]
+        merged_tweet_dfs = tweet_df_list[0]
+
+    save_tweet_IDs(merged_IDs, LOCAL_EXPORT_ID_PATH)
+    merged_tweet_dfs.to_csv(LOCAL_EXPORT_DF_PATH)
+
+    # export to AWS
+    try:
+        save_to_AWS(LOCAL_EXPORT_ID_PATH, )
+    except Exception as e:
+        print("Error in exporting the local files to AWS")
+        print(e)
+        print("------------------")
+        raise ValueError(
+            "Please fix the error in exporting the local files to AWS")
+    finally:
+        print(
+            f"Finished with the execution of this 'scrape_tweets_daily.py' at (in UTC time): {datetime.datetime.utcnow()}")
