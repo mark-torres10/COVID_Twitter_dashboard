@@ -4,3 +4,5 @@ covid_venv/
 frontend/static/frontend/
 *.sqlite3
 *.env
+*.covid_venv/*
+*.vscode/*
