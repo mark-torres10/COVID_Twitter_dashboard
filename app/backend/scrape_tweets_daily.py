@@ -151,8 +151,12 @@ if __name__ == "__main__":
     # AWS_ACCESS
     # AWS_SECRET
 
+    IEEE_USERNAME = os.environ["IEEE_USERNAME"]
+    IEEE_PASSWORD = os.environ["IEEE_PASSWORD"]
+
     DRIVER_PATH = "/Users/mark/Documents/research/gersteinLab/TextMining-master/chromedriver"
 
+    AWS_TWEET_DIR = "tweet_scrapes/"
     get_links_from_website()
     # load tweets from website
     print("This part of the script loads the tweets from the website")

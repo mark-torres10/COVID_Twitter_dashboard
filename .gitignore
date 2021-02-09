@@ -7,4 +7,5 @@
 *.covid_venv/*
 *.vscode/*
 *.covid_venv
-*configs.sh
+*config.sh
+*rootkey.csv
