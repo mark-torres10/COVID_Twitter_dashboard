@@ -11,6 +11,7 @@ import pandas as pd
 import emoji
 import re
 import nltk
+import datetime
 from nltk.corpus import stopwords
 import aws_helpers
 from aws_helpers import save_to_AWS, load_from_AWS
@@ -322,8 +323,12 @@ if __name__ == "__main__":
             print(f"Error happened at index {idx}\n")
             print(f"The timestamp was: {timestamp}\n")
             print(f"The error was: {e}\n")
-            raise ValueError(
-                "Please address error in looping through dates column")
+
+            dates_list.append("N/A")
+            year_list.append("N/A")
+            month_list.append("N/A")
+            day_list.append("N/A")
+            hour_list.append("N/A")
 
     # loop through the text column, get parsed text
     for idx, text in enumerate(tweets_df["full_text"]):
@@ -340,7 +345,7 @@ if __name__ == "__main__":
 
             # get hashtag counts
             hashtag_count = count_hashtags(text)
-            hashtags_counts_list.append(hashtag_count)
+            hashtag_counts_list.append(hashtag_count)
 
         except Exception as e:
             print("Error in looping through text column and getting parsed text")
