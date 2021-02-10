@@ -43,21 +43,8 @@ if __name__ == "__main__":
         "hourly_tweets/" + FRESH_TWEETS_FILENAME
 
     # connect to Twitter API
-    num_login_attempts = 1
-
-    while True:
-        try:
-            t = Twarc(CONSUMER_KEY, CONSUMER_SECRET,
-                      ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-            break
-        except Exception as e:
-            print("Problem with connecting to Twitter API")
-            print(e)
-            sleep_time_seconds = 60 * num_login_attempts
-            num_login_attempts += 1
-            time.sleep(sleep_time_seconds)
-            if num_login_attempts > 5:
-                break
+    t = Twarc(CONSUMER_KEY, CONSUMER_SECRET,
+              ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
     # scrape fresh tweets (filter allows you to get tweets as they happen)
     JSON_list = []
