@@ -5,6 +5,7 @@
     Cleans and preprocesses hydrated tweets (from AWS S3 bucket), uploads back to AWS.
 
 """
+import os
 import pandas as pd
 import emoji
 import re
@@ -203,11 +204,42 @@ if __name__ == "__main__":
     # change dir to this file's directory
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+    # get env vars
+    AWS_BUCKET = os.environ["AWS_BUCKET"]
+    AWS_ACCESS = os.environ["AWS_ACCESS"]
+    AWS_SECRET = os.environ["AWS_SECRET"]
+
+    # initialize paths
+    AWS_TWEET_DIR = "tweet_scrapes/"
+    HYDRATED_TWEETS_PATH = "./../../tweets/hydrated_tweets/"
+    PREPROCESSED_TWEETS_PATH = "./../../tweets/preprocessed_tweets/"
+
+    # full paths of files
+    HYDRATED_TWEETS_FILENAME = "hydrated_tweets_2020-03-20_2021-02-09.csv"
+    PREPROCESSED_TWEETS_FILENAME = "preprocessed_tweets_2020-03-20_2021-02-09.csv"
+    LOCAL_HYDRATED_TWEETS_PATH = HYDRATED_TWEETS_PATH + HYDRATED_TWEETS_FILENAME
+    LOCAL_PREPROCESSED_TWEETS_PATH = PREPROCESSED_TWEETS_PATH + \
+        PREPROCESSED_TWEETS_FILENAME
+
+    AWS_HYDRATED_TWEETS_PATH = AWS_TWEET_DIR + \
+        "hydrated_tweets/" + HYDRATED_TWEETS_FILENAME
+    AWS_PREPROCESSED_TWEETS_PATH = AWS_TWEET_DIR + \
+        "preprocessed_tweets/" + PREPROCESSED_TWEETS_FILENAME
+
     # load tweets from AWS, use subset of cols
-    tweets_df = ""
+    # for now, can choose to use local version of file, rather than manually load it
+
+    use_local = True
+    if use_local:
+        tweets_df = pd.read_csv(LOCAL_HYDRATED_TWEETS_PATH)
+    else:
+        tweets_df = pd.read_csv(AWS_HYDRATED_TWEETS_PATH)
+
     tweets_df = tweets_df[["user", "created_at", "id",
                            "full_text", "geo", "coordinates",
                            "place", "retweet_count", "favorite_count"]]
+
+    # change cols to appropriate dtype / representation
 
     # initialize lists to hold information
     is_USA_list = []

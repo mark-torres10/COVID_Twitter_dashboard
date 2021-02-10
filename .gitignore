@@ -10,4 +10,4 @@
 *config.sh
 *rootkey.csv
 *tweets/*
-*/.DS_Store
+*.DS_Store
