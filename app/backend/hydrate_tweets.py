@@ -2,7 +2,7 @@
 
     hydrate_tweets.py
 
-    This script takes tweet IDs and returns the full tweet JSON object associated with that tweet ID. 
+    This script takes tweet IDs and uploads the hydrated tweets to our AWS S3 bucket
 """
 import os
 import csv
@@ -61,21 +61,29 @@ if __name__ == "__main__":
     with open(LOCAL_EXPORT_ID_PATH, "r") as f:
         datareader = csv.reader(f)
         for row in datareader:
-            tweet_ID_list.append(row)
+            tweet_ID_list.append(row[0])
 
     # connect twarc
     t = Twarc(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
+    # hydrate tweets into generator object
     try:
-        # hydrate tweets
-        JSON_list = t.hydrate(tweet_ID_list)
+        JSON_generator = t.hydrate(tweet_ID_list)
     except Exception as e:
         print("Error in hydrating tweets")
         print(e)
         raise ValueError("Please resolve hydration issue.")
 
+    # get list of JSONs
+    JSON_list = []
+    while True:
+        try:
+            JSON_list.append(next(JSON_generator))
+        except StopIteration:
+            break
+
     # transform into pandas df
-    df = pd.read_json(JSON_list, lines=True)
+    df = pd.DataFrame(JSON_list)
 
     # save locally
     df.to_csv(LOCAL_EXPORT_TWEETS_PATH)
