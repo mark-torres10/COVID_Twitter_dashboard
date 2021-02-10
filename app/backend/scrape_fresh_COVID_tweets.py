@@ -17,7 +17,6 @@ from twarc import Twarc
 from aws_helpers import save_to_AWS
 
 if __name__ == "__main__":
-    pass
 
     # change dir to this file's directory
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -43,8 +42,22 @@ if __name__ == "__main__":
     AWS_FRESH_TWEETS_PATH = AWS_TWEET_DIR + \
         "hourly_tweets/" + FRESH_TWEETS_FILENAME
 
-    # connect twarc
-    t = Twarc(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    # connect to Twitter API
+    num_login_attempts = 1
+
+    while True:
+        try:
+            t = Twarc(CONSUMER_KEY, CONSUMER_SECRET,
+                      ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+            break
+        except Exception as e:
+            print("Problem with connecting to Twitter API")
+            print(e)
+            sleep_time_seconds = 60 * num_login_attempts
+            num_login_attempts += 1
+            time.sleep(sleep_time_seconds)
+            if num_login_attempts > 5:
+                break
 
     # scrape fresh tweets (filter allows you to get tweets as they happen)
     JSON_list = []
