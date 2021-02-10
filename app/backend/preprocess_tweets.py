@@ -6,6 +6,7 @@
 
 """
 import os
+import ast
 import pandas as pd
 import emoji
 import re
@@ -239,7 +240,9 @@ if __name__ == "__main__":
                            "full_text", "geo", "coordinates",
                            "place", "retweet_count", "favorite_count"]]
 
-    # change cols to appropriate dtype / representation
+    # change place col to be read as dict, not str
+    tweets_df["place"] = tweets_df["place"].apply(
+        lambda x: ast.literal_eval(x))
 
     # initialize lists to hold information
     is_USA_list = []
@@ -255,18 +258,105 @@ if __name__ == "__main__":
     non_hashtags_list = []
     hashtag_counts_list = []
 
-    # loop through all rows, append information to corresponding list
-    try:
-        for row in tweets_df.iterrows():
-            pass
-    except Exception as e:
-        print("Exception encountered when looping through all the rows in the dataset")
-        print(e)
-        raise ValueError(
-            "Please resolve the issue encountered from looping through the rows")
+    # loop through the location column, get location information
+    for location_dict in tweets_df["place"]:
 
-    # light preprocessing of pandas df
+        try:
+            is_USA, country, state = parse_location(location_dict)
+
+            is_USA_list.append(is_USA)
+            country_location_list.append(country)
+            state_location_list.append(state)
+        except Exception as e:
+            print("Error in looping through locations column and getting locations")
+            print(f"Error happened at index {idx}\n")
+            print(f"The location was: {location_dict}\n")
+            print(f"The error was: {e}\n")
+            raise ValueError(
+                "Please address error in looping through locations column")
+
+    # loop through the dates column, get date info
+    for idx, timestamp in enumerate(tweets_df["created_at"]):
+
+        try:
+            date, year, month, day, hour = parse_dates(timestamp)
+
+            dates_list.append(date)
+            year_list.append(year)
+            month_list.append(month)
+            day_list.append(day)
+            hour_list.append(hour)
+        except Exception as e:
+            print("Error in looping through dates column and getting dates")
+            print(f"Error happened at index {idx}\n")
+            print(f"The timestamp was: {timestamp}\n")
+            print(f"The error was: {e}\n")
+            raise ValueError(
+                "Please address error in looping through dates column")
+
+    # loop through the text column, get parsed text
+    for idx, text in enumerate(tweets_df["full_text"]):
+
+        try:
+            # cleaned, tokenized text
+            tokenized_text_arr = clean_text(text)
+            tokenized_text_list.append(tokenized_text_arr)
+
+            # get hashtags
+            hashtag_arr, non_hashtag_arr = parse_hashtags(text)
+            hashtags_list.append(hashtag_arr)
+            non_hashtags_list.append(non_hashtag_arr)
+
+            # get hashtag counts
+            hashtag_count = count_hashtags(text)
+            hashtags_counts_list.append(hashtag_count)
+
+        except Exception as e:
+            print("Error in looping through text column and getting parsed text")
+            print(f"Error happened at index {idx}\n")
+            print(f"The text was: {text}\n")
+            print(f"The error was: {e}\n")
+            raise ValueError(
+                "Please address error in looping through text column")
+
+    # add lists as columns to our df
+    tweets_df["is_USA"] = is_USA_list
+    tweets_df["country"] = country_location_list
+    tweets_df["state"] = state_location_list
+    tweets_df["date"] = dates_list
+    tweets_df["year"] = year_list
+    tweets_df["month"] = month_list
+    tweets_df["day"] = day_list
+    tweets_df["hour"] = hour_list
+    tweets_df["tokenized_text"] = tokenized_text_list
+    tweets_df["hashtags_list"] = hashtags_list
+    tweets_df["non_hashtags_list"] = non_hashtags_list
+    tweets_df["hashtag_count"] = hashtag_counts_list
 
     # export df as local .csv file
+    try:
+        tweets_df.to_csv(LOCAL_PREPROCESSED_TWEETS_PATH)
+    except Exception as e:
+        print("Problem with exporting tweets df as local file")
+        print(e)
+        raise ValueError(
+            "Please address issue with exporting tweets df as local file")
 
     # export df to AWS bucket
+    try:
+        # save to AWS
+        save_to_AWS(LOCAL_PREPROCESSED_TWEETS_PATH,
+                    AWS_PREPROCESSED_TWEETS_PATH,
+                    "s3",
+                    AWS_BUCKET,
+                    AWS_ACCESS,
+                    AWS_SECRET)
+    except Exception as e:
+        print("Error in exporting the local files to AWS")
+        print(e)
+        print("------------------")
+        raise ValueError(
+            "Please fix the error in exporting the local files to AWS")
+    finally:
+        print(
+            f"Finished with the execution of 'preprocess_tweets.py' at (in UTC time): {datetime.datetime.utcnow()}")
