@@ -297,7 +297,7 @@ if __name__ == "__main__":
             print(f"Error happened at index {idx}\n")
             print(f"The location was: {location_dict}\n")
             print(f"The error was: {e}\n")
-            if location_dict == 0:
+            if type(location_dict) == int:
                 is_USA_list.append("N/A")
                 country_location_list.append("N/A")
                 state_location_list.append("N/A")
