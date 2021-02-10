@@ -10,7 +10,6 @@ import emoji
 import re
 import nltk
 from nltk.corpus import stopwords
-
 import aws_helpers
 from aws_helpers import save_to_AWS, load_from_AWS
 
@@ -201,6 +200,9 @@ def count_hashtags(text):
 
 if __name__ == "__main__":
 
+    # change dir to this file's directory
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
     # load tweets from AWS, use subset of cols
     tweets_df = ""
     tweets_df = tweets_df[["user", "created_at", "id",
@@ -208,5 +210,31 @@ if __name__ == "__main__":
                            "place", "retweet_count", "favorite_count"]]
 
     # initialize lists to hold information
+    is_USA_list = []
+    country_location_list = []
+    state_location_list = []
+    dates_list = []
+    year_list = []
+    month_list = []
+    day_list = []
+    hour_list = []
+    tokenized_text_list = []
+    hashtags_list = []
+    non_hashtags_list = []
+    hashtag_counts_list = []
 
     # loop through all rows, append information to corresponding list
+    try:
+        for row in tweets_df.iterrows():
+            pass
+    except Exception as e:
+        print("Exception encountered when looping through all the rows in the dataset")
+        print(e)
+        raise ValueError(
+            "Please resolve the issue encountered from looping through the rows")
+
+    # light preprocessing of pandas df
+
+    # export df as local .csv file
+
+    # export df to AWS bucket
