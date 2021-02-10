@@ -200,6 +200,24 @@ def count_hashtags(text):
     return count
 
 
+def try_literal_eval(text):
+    """
+    Tries to use ast's literal_eval function to 
+    evaluate a string into its literal representation (e.g., 'dict')
+
+    Arg:
+        text: string representation
+    Returns:
+        eval: literal representation of parsed string
+    """
+    try:
+        eval = ast.literal_eval(text)
+    except Exception as e:
+        eval = None
+
+    return eval
+
+
 if __name__ == "__main__":
 
     # change dir to this file's directory
@@ -242,7 +260,7 @@ if __name__ == "__main__":
 
     # change place col to be read as dict, not str
     tweets_df["place"] = tweets_df["place"].apply(
-        lambda x: ast.literal_eval(x))
+        lambda x: try_literal_eval(x))
 
     # initialize lists to hold information
     is_USA_list = []
