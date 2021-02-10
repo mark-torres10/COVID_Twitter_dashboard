@@ -35,9 +35,14 @@ def parse_location(location_dict):
     elif location_dict["country_code"] != "US":
         return (False, location_dict["country_code"], "N/A")
     else:
-        # e.g., "Los Angeles, CA" --> "CA"
-        state = location_dict["full_name"].split(",")[1].strip()
-        return (True, "US", state)
+        try:
+            # e.g., "Los Angeles, CA" --> "CA"
+            state = location_dict["full_name"].split(",")[1].strip()
+        except Exception as e:
+            # sometimes it just denotes the full name as "United States"
+            state = location_dict["full_name"].strip()
+        finally:
+            return (True, "US", state)
 
 
 def parse_dates(timestamp):
