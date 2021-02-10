@@ -258,6 +258,8 @@ if __name__ == "__main__":
                            "full_text", "geo", "coordinates",
                            "place", "retweet_count", "favorite_count"]]
 
+    print(f"Parsing {tweets_df.shape[0]} tweets today...")
+
     # change place col to be read as dict, not str
     tweets_df["place"] = tweets_df["place"].apply(
         lambda x: try_literal_eval(x))
@@ -277,7 +279,7 @@ if __name__ == "__main__":
     hashtag_counts_list = []
 
     # loop through the location column, get location information
-    for location_dict in tweets_df["place"]:
+    for idx, location_dict in enumerate(tweets_df["place"]):
 
         try:
             is_USA, country, state = parse_location(location_dict)
@@ -290,8 +292,14 @@ if __name__ == "__main__":
             print(f"Error happened at index {idx}\n")
             print(f"The location was: {location_dict}\n")
             print(f"The error was: {e}\n")
-            raise ValueError(
-                "Please address error in looping through locations column")
+            if location_dict == 0:
+                is_USA_list.append("N/A")
+                country_location_list.append("N/A")
+                state_location_list.append("N/A")
+                continue
+            else:
+                raise ValueError(
+                    "Please address error in looping through locations column")
 
     # loop through the dates column, get date info
     for idx, timestamp in enumerate(tweets_df["created_at"]):
