@@ -10,6 +10,9 @@
     Args:
         - Date: a date, in the format of %Y-%m-%d (e.g., 2020-03-20)
 
+    Assumes that there is an existing aggregate dataset and that the most recent version has already been scraped
+    (via 'get_google_API_data.py')
+
 """
 import os
 import sys
