@@ -96,6 +96,9 @@ if __name__ == "__main__":
                     AWS_BUCKET,
                     AWS_ACCESS,
                     AWS_SECRET)
+
+        # remove local version
+        os.remove(LOCAL_EXPORT_TWEETS_PATH)
     except Exception as e:
         print("Error in exporting the local files to AWS")
         print(e)

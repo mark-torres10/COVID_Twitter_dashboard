@@ -216,6 +216,10 @@ if __name__ == "__main__":
                     AWS_ACCESS,
                     AWS_SECRET)
 
+        # remove local versions
+        os.remove(LOCAL_EXPORT_ID_PATH)
+        os.remove(LOCAL_EXPORT_DF_PATH)
+
     except Exception as e:
         print("Error in exporting the local files to AWS")
         print(e)
