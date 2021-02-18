@@ -1,0 +1,17 @@
+.dashboard-time-series {
+    background-color: red; 
+    height: 98%; 
+    width: 98%; 
+    position: relative;
+    box-sizing: border-box;
+    margin: auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-series {
+    position: relative; 
+    margin: auto; 
+    border-radius: 0.5em; 
+}

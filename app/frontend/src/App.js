@@ -1,17 +1,12 @@
-import React from 'react'
-import Header from './Header'; 
-import Sidebar from './Sidebar'; 
-import Dashboard from './Dashboard'; 
-import "./static/App.css"; 
+import React from 'react'; 
+import './static/App.css'; 
 
 const App = () => {
   return (
     <div>
-        <Header />
-        <div className="main">
-            <Sidebar className="sidebar"/>
-            <Dashboard className="dashboard"/>
-        </div>
+      <div className="header-div">Header Div</div>
+      <div className="sidebar-div">Sidebar Div</div>
+      <div className="dashboard-div">Dashboard div</div>
     </div>
   )
 }

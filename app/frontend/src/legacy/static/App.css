@@ -1,0 +1,29 @@
+.main {
+    background-color: yellow; 
+    border-radius: 1em; 
+    height: 50em; 
+}
+
+.sidebar {
+    float: left; 
+    width: 20%; 
+    box-sizing: border-box; 
+    position: relative; 
+    height: 48em; 
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 5px; 
+}
+
+.dashboard {
+    float: right; 
+    width: 79%; 
+    box-sizing: border-box; 
+    height: 48em; 
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-right: 5px; 
+}

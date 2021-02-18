@@ -1,0 +1,14 @@
+@import "global_themes.css"; 
+
+.header-div {
+    background-color: var(--header-color); 
+}
+
+.sidebar-div {
+    background-color: var(--sidebar-color); 
+}
+
+.dashboard-div {
+    /*background-color: var(--dashboard-color);*/
+    background-color: red; 
+}
