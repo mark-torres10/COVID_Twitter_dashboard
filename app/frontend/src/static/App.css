@@ -1,14 +1,30 @@
 @import "global_themes.css"; 
 
-.header-div {
-    background-color: var(--header-color); 
-}
 
 .sidebar-div {
     background-color: var(--sidebar-color); 
+    width: 20%; 
+    height: 100vh; 
+}
+
+.header-div {
+    background-color: var(--header-color); 
+    height: 20%; 
 }
 
 .dashboard-div {
     /*background-color: var(--dashboard-color);*/
     background-color: red; 
+    height: 80%; 
+}
+
+.app-flex-div {
+    display: flex; 
+}
+
+.header-dash-flex-div {
+    display: flex; 
+    flex-direction: column; 
+    width: 80%; 
+    height: 100vh; 
 }
