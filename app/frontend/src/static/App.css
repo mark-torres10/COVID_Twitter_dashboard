@@ -2,13 +2,11 @@
 
 
 .sidebar-div {
-    background-color: var(--sidebar-color); 
     width: 20%; 
     height: 100vh; 
 }
 
 .header-div {
-    background-color: var(--header-color); 
     height: 20%; 
 }
 

@@ -1,0 +1,5 @@
+@import "global_themes.css"; 
+
+.sidebar-div {
+    background-color: var(--sidebar-color); 
+}
