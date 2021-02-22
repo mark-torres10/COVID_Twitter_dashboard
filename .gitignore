@@ -11,3 +11,4 @@
 *rootkey.csv
 *tweets/*
 *.DS_Store
+*app/frontend/static/frontend/*

@@ -1,7 +1,10 @@
 import React from 'react'; 
 import Sidebar from "./Sidebar"; 
 import Header from "./Header"; 
-import PageOptions from "./PageOptions"; 
+import TrendingCOVIDTweets from "./TrendingCOVIDTweets"; 
+import CurrentCOVIDNews from "./CurrentCOVIDNews"; 
+import CurrentCOVIDCounts from "./CurrentCOVIDCounts"; 
+
 import './static/App.css'; 
 
 const App = () => {
@@ -17,10 +20,9 @@ const App = () => {
         <div className="header-dash-flex-div">
           <Header className="header-div"/>
           <div className="dashboard-div">
-            Dashboard div
-            <div className="covid-trending-tweets-div">This is the trending COVID tweets </div>
-            <div className="covid-current-news-div">This is what's being said about COVID right now</div>
-            <div className="covid-counts-div">This is the current COVID counts (cases, deaths, vaccinations)</div>
+            <TrendingCOVIDTweets/>
+            <CurrentCOVIDNews />
+            <CurrentCOVIDCounts />
           </div>
         </div>
       </div>

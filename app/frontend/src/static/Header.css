@@ -4,9 +4,16 @@
     background-color: var(--header-color); 
 }
 
+.header-title {
+    color: white; 
+    size: 10vh;
+    display: flex;
+    align-items: center; 
+}
+
 .page-options {
     width: 30vh; 
-    position: relative; 
-    float: right; 
-    right: 7vh; 
+    position: absolute; 
+    left: 142.5vh;
+    top: 17.5vh;
 }
