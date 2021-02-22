@@ -1,0 +1,14 @@
+.page-options {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    color: white;
+}
+
+.option:hover {
+    text-decoration: underline; 
+}
+
+.option:visited {
+    color: white; 
+}

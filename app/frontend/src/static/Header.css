@@ -3,3 +3,10 @@
 .header-div {
     background-color: var(--header-color); 
 }
+
+.page-options {
+    width: 30vh; 
+    position: relative; 
+    float: right; 
+    right: 7vh; 
+}
