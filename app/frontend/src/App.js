@@ -12,9 +12,6 @@ const App = () => {
     <div className="app-div">
       <div className="app-flex-div">
         {/* Sidebar */}
-        {/*
-        <div className="sidebar-div">Sidebar Div</div>
-        */}
         <Sidebar className="sidebar-div"/>
         {/* Header + Dashboard */}
         <div className="header-dash-flex-div">
