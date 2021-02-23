@@ -1,3 +1,11 @@
 .trending-covid-tweets {
+    border: 5px solid green; 
     display: flex; 
+    flex-direction: column; 
+}
+
+.example-covid-tweets {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-around; 
 }

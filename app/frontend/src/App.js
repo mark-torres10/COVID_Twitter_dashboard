@@ -17,7 +17,7 @@ const App = () => {
         <div className="header-dash-flex-div">
           <Header className="header-div"/>
           <div className="dashboard-div">
-            <TrendingCOVIDTweets/>
+            <TrendingCOVIDTweets className="trending-covid-tweets"/>
             <CurrentCOVIDNews />
             <CurrentCOVIDCounts />
           </div>

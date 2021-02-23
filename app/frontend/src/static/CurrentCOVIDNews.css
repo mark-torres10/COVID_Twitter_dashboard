@@ -1,3 +1,9 @@
 .current-covid-news {
     display: flex;
+    flex-direction: column; 
+}
+
+.covid-news-list {
+    display: flex; 
+    flex-direction: row; 
 }
